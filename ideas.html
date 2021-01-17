@@ -173,22 +173,26 @@
     function closeForm() {
       document.getElementById("myForm").style.display = "none";
     }
-        
-        function new_idea() {
-            var txt = document.getElementById("txt").value;
-            var categories = document.getElementById("cat").value.split(",");
-            var tags = document.getElementById("tags").value.split(",");
-            for (let i = 0; i < categories.length; ++i)
-                categories[i] = categories[i].trim();
+
+    function new_idea() {
+      var txt = document.getElementById("txt").value;
+      var categories = document.getElementById("cat").value.split(", ");
+      var tags = document.getElementById("tags").value.split(", ");
+      for (let i = 0; i < categories.length; ++i)
+        categories[i] = categories[i].trim();
+
+      for (let i = 0; i < tags.length; ++i)
+        tags[i] = tags[i].trim();
             
-            for (let i = 0; i < tags.length; ++i)
-                tags[i] = tags[i].trim();
-            
-            $.post("/new_idea", {text: txt, categories: JSON.stringify(categories), tags: JSON.stringify(tags)}).then(
-                function() { console.log("ok"); },
-                function() { console.log("fail"); }
-            );
-        }
+      $.post("/new_idea", {text: txt, categories: JSON.stringify(categories), tags: JSON.stringify(tags)}).then(
+        function() {
+          console.log("ok");
+          alert("Successfully created idea");
+          window.location.reload(true);
+        },
+        function() { console.log("fail"); }
+      );
+    }
     </script>
   </div>
 

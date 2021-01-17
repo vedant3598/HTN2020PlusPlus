@@ -1,7 +1,7 @@
 const multer = require("multer");
 const Storage = require('@google-cloud/storage').Storage;
 const path = require("path");
-const uuidv4 = require('uuid/v4');
+// const uuidv4 = require('uuid/v4');
 
 // Creates a client and bucket
 const storage = new Storage();
@@ -24,7 +24,7 @@ function api_ensure_auth(request, response, next) {
     next();
 }
 
-//TODO: FIXME: there might be an api call for this
+// TODO: FIXME: there might be an api call for this
 function get_gcs_url(type, name) {
     return "https://storage.googleapis.com/" + bucket_name + "/" + type + "/" + name;
 }

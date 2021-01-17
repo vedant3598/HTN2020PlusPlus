@@ -216,8 +216,4 @@ document.addEventListener("DOMContentLoaded", function() {
   });  
 });
 
-$("#myForm").submit((e) => {
-  console.log("whattt");
-  e.preventDefault();
-});
 

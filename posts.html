@@ -108,12 +108,18 @@
         <h1>New Post</h1>
 
         <label for="event"><b>Event</b></label>
-        <input type="text" placeholder="Enter Event" name="event" required>
+        <input type="text" id="event" placeholder="Enter Event" name="event" required>
 
         <label for="text"><b>Text</b></label>
-        <input type="text" placeholder="Enter Text" name="text" required>
+        <input type="text" id="txt" placeholder="Enter Text" name="text" required>
 
-        <button type="submit" class="btn">Submit</button>
+        <label for="categories"><b>Categories</b></label>
+        <input type="categories" id="cat" placeholder="Enter Categories" name="categories">
+
+        <label for="tags"><b>Tags</b></label>
+        <input type="tags" id="tags" placeholder="Enter Tags" name="tags">
+
+        <button type="submit" onclick="new_post()" class="btn">Submit</button>
         <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
       </form>
     </div>
@@ -126,6 +132,28 @@
     function closeForm() {
       document.getElementById("myForm").style.display = "none";
     }
+
+    function new_post() {
+      var txt = document.getElementById("txt").value;
+      var event = document.getElementById("event").value;
+      var categories = document.getElementById("cat").value.split(", ");
+      var tags = document.getElementById("tags").value.split(", ");
+      for (let i = 0; i < categories.length; ++i)
+        categories[i] = categories[i].trim();
+
+      for (let i = 0; i < tags.length; ++i)
+        tags[i] = tags[i].trim();
+            
+      $.post("/new_team_post", {text: txt, event: event, categories: JSON.stringify(categories), tags: JSON.stringify(tags)}).then(
+        function() {
+          console.log("ok");
+          alert("Successfully created post");
+          window.location.reload(true);
+        },
+        function() { console.log("fail"); }
+      );
+    }
+
     </script>
   </div>
 
