@@ -244,10 +244,9 @@ app.get("/team_posts", function (request, response) {
 app.post("/new_idea", api_ensure_auth, uploader.any(), function (request, response) {
     let owner = request.user.username, total = request.files.length;
     
-    let categories, timestamp, text, tags;
+    let categories, text, tags;
     try {
         categories = request.body.categories ? JSON.parse(request.body.categories) : [];
-        timestamp = new Date();
         text = request.body.text;
         tags = request.body.tags ? JSON.parse(request.body.tags) : [];
     }
@@ -258,7 +257,7 @@ app.post("/new_idea", api_ensure_auth, uploader.any(), function (request, respon
     
     let doc = new IdeaModel();
     doc.categories = categories;
-    doc.timestamp = timestamp;
+    doc.timestamp = new Date();
     doc.text = text;
     doc.owner = owner;
     doc.tags = tags;
@@ -314,10 +313,9 @@ app.post("/new_idea", api_ensure_auth, uploader.any(), function (request, respon
 app.post("/new_team_post", function (request, response) {
     let owner = request.user.username;
     
-    let categories, timestamp, text, tags, event;
+    let categories, text, tags, event;
     try {
         categories = request.body.categories ? JSON.parse(request.body.categories) : [];
-        timestamp = new Date();
         text = request.body.text;
         tags = request.body.tags ? JSON.parse(request.body.tags) : [];
         event = request.body.event;
@@ -329,7 +327,7 @@ app.post("/new_team_post", function (request, response) {
     
     let doc = new TeamPostModel();
     doc.categories = categories;
-    doc.timestamp = timestamp;
+    doc.timestamp = new Date();
     doc.text = text;
     doc.owner = owner;
     doc.tags = tags;
