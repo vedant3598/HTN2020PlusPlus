@@ -68,11 +68,11 @@ app.get('/', connectEnsureLogin.ensureLoggedIn(), function(request, response) {
     response.sendFile(path.join(__dirname + '/landing.html'));
 });
 
-app.get('/ideas', connectEnsureLogin.ensureLoggedIn(), function(request, response) {
+app.get('/ideass', connectEnsureLogin.ensureLoggedIn(), function(request, response) {
     response.sendFile(path.join(__dirname + '/ideas.html'));
 });
 
-app.get('/posts', connectEnsureLogin.ensureLoggedIn(), function(request, response) {
+app.get('/postss', connectEnsureLogin.ensureLoggedIn(), function(request, response) {
     response.sendFile(path.join(__dirname + '/posts.html'));
 });
 

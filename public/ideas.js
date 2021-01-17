@@ -38,7 +38,7 @@ function searchTags() {
         // return item.attachmentUrls.length > 0;
       // });
       if (result.length === 0) {
-        var str = "<h4 style=\"text-align: center;\">No tags found</h4>";
+        var str = "<h4 style=\"text-align: center; center; position: absolute; left: 43%;\">No ideas found</h4>";
         $("#tagsFound").append(str);
       } else {
         result.forEach((item) => {
@@ -87,7 +87,7 @@ function searchTagsPosts() {
     success: function(result) {
       console.log("result =", result);
       if (result.length === 0) {
-        var str = "<h4 style=\"text-align: center;\">No tags found</h4>";
+        var str = "<h4 style=\"text-align: center; position: absolute; left: 43%;\">No posts found</h4>";
         $("#commentsFound").find(".row").append(str);
       } else {
         result.forEach((item, idx) => {
@@ -142,6 +142,79 @@ function searchTagsPosts() {
     }
   });  
 }
+
+document.addEventListener("DOMContentLoaded", function() {
+  console.log("search posts");
+  var query = document.getElementById('searchBar').value;
+  tag = query;
+  console.log("tag =", tag, "category =", category, "event =", event);
+  document.getElementById('commentsFound').getElementsByClassName("row")[0].innerHTML = "";
+  $.ajax({
+    url: "/team_posts",
+    data: {
+      "category": "",
+      "event": "",
+      "tags": ""
+    },
+    type: "GET",
+    success: function(result) {
+      console.log("result =", result);
+      if (result.length === 0) {
+        var str = "<h4 style=\"text-align: center; center; position: absolute; left: 43%;\">No tags found</h4>";
+        $("#commentsFound").find(".row").append(str);
+      } else {
+        result.forEach((item, idx) => {
+          var str = "";
+          console.log(item, idx);
+          /*
+          if (item._id) {
+            $.ajax({
+              url: "/profileInfo",
+              data: {
+                "user": item.owner
+              },
+              type: "GET",
+              success: function(result1) {
+                console.log("result1 =", result1);
+                if (result1.profile_pic_url !== undefined) {
+                  console.log("huh");
+                  if (idx > 0) {
+                    str = "div class=\"column\" style=\"background-color: white; margin-top: 50px;\"><div style=\"display: inline-flex;\"<img src=" + result1.profile_pic_url + " width=\"10%\" style=\"margin-right: 80px;\"><h3> Username: " + item.owner + "</h3><h3 style=\"margin-left: 50px;\">Event: " + item.event + "</h3></h3><h3 style=\"margin-left: 50px;\">Categories: " + item.categories[0] + "</h3></h3><h3 style=\"margin-left: 50px;\">Tags: " + item.tags[0] + "</h3></div><p style=\"float: left; padding-left: 50px; padding-top: 50px; font-size: 24px;\">" + item.text + "</p></div>";
+                  } else {
+                    str = "div class=\"column\" style=\"background-color: white;\"><div style=\"display: inline-flex;\"<img src=" + result1.profile_pic_url + " width=\"10%\" style=\"margin-right: 80px;\"><h3> Username: " + item.owner + "</h3><h3 style=\"margin-left: 50px;\">Event: " + item.event + "</h3></h3><h3 style=\"margin-left: 50px;\">Categories: " + item.categories[0] + "</h3></h3><h3 style=\"margin-left: 50px;\">Tags: " + item.tags[0] + "</h3></div><p style=\"float: left; padding-left: 50px; padding-top: 50px; font-size: 24px;\">" + item.text + "</p></div>";
+                  }
+                }
+              }
+            });
+          } else {
+            */
+            if (idx > 0) {
+              str = "<div class=\"column\" style=\"background-color: white; margin-top: 50px;\"><div style=\"display: inline-flex;\"><img src=" + "https://www.pngitem.com/pimgs/m/404-4042710_circle-profile-picture-png-transparent-png.png" + " width=\"10%\" style=\"margin-right: 80px;\"><h3> Username: " + item.owner + "</h3><h3 style=\"margin-left: 50px;\">Event: " + item.event + "</h3></h3><h3 style=\"margin-left: 50px;\">Categories: " + item.categories[0] + "</h3></h3><h3 style=\"margin-left: 50px;\">Tags: " + item.tags[0] + "</h3></div><p style=\"float: left; padding-left: 50px; padding-top: 50px; font-size: 24px;\">" + item.text + "</p></div>";
+            } else {
+              str = "<div class=\"column\" style=\"background-color: white;\"><div style=\"display: inline-flex;\"><img src=" + "https://www.shoptab.net/blog/wp-content/uploads/2014/07/profile-circle.png" + " width=\"10%\" style=\"margin-right: 80px;\"><h3> Username: " + item.owner + "</h3><h3 style=\"margin-left: 50px;\">Event: " + item.event + "</h3></h3><h3 style=\"margin-left: 50px;\">Categories: " + item.categories[0] + "</h3></h3><h3 style=\"margin-left: 50px;\">Tags: " + item.tags[0] + "</h3></div><p style=\"float: left; padding-left: 50px; padding-top: 50px; font-size: 24px;\">" + item.text + "</p></div>";
+            }
+          // }
+          console.log("str =", str);
+          $("#commentsFound").find(".row").append(str);
+        });
+        /* <div class="column" style="background-color: white; border-color: black;">
+                <div style="display: inline-flex;">
+                    <img src="https://www.pngitem.com/pimgs/m/404-4042710_circle-profile-picture-png-transparent-png.png" width="10%" style="margin-right: 80px;">
+                  <h3>Username: test_32323</h3>
+                  <h3 style="margin-left: 50px;">Event: HTN2020</h3>
+                  <h3 style="margin-left: 50px;">Categories: Gaming</h3>
+                  <h3 style="margin-left: 50px;">Tags: AR/VR</h3>
+                </div>
+                <p style="float: left; padding-left: 50px; padding-top: 50px; font-size: 24px;">Looking for someone who is good with game design, has Unity3D experience, etc...</p>
+              </div> */
+      }
+      // result = result.filter((item) => {
+        // return item.attachmentUrls.length > 0;
+      // });
+      
+    }
+  });  
+});
 
 $("#myForm").submit((e) => {
   console.log("whattt");
