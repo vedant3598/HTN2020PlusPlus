@@ -113,15 +113,18 @@ app.post('/updateProfile', api_ensure_auth, uploader.single('image'), function(r
         profileModel.findOneAndUpdate({user_name: user}, newProfile, {}, function(err, profile) {
             if (err || !profile) {
                 let doc = new profileModel();
-
                 doc.user_name = user;
                 doc.profile_pic_url = pp_url;
-                doc.name = request.body.name;
+                if (!request.body.name) {
+                    response.status(500).send({error: 'Missing full name'});
+                    return response.end();
+                }
                 
+                doc.name = request.body.name;
                 try {
                     doc.skills = request.body.skills ? JSON.parse(request.body.skills) : [];
                     doc.interests = request.body.interests ? JSON.parse(request.body.interests) : [];
-                    doc.contact_info = JSON.parse(request.body.contact_info);
+                    doc.contact_info = request.body.contact_info ? JSON.parse(request.body.contact_info) : [];
                 }
                 catch {
                     response.status(500).send({error: 'Bad input'});
@@ -242,12 +245,15 @@ app.get("/team_posts", function (request, response) {
 });
 
 app.post("/new_idea", api_ensure_auth, uploader.any(), function (request, response) {
-    let owner = request.user.username, total = request.files.length;
+    let owner = request.user.username, total = (request.files || []).length, total2 = total;
+    let categories, text = request.body.text, tags;
+    if (!text) {
+        response.status(500).send({error: 'missing/empty text (body)'});
+        return response.end();
+    }
     
-    let categories, text, tags;
     try {
         categories = request.body.categories ? JSON.parse(request.body.categories) : [];
-        text = request.body.text;
         tags = request.body.tags ? JSON.parse(request.body.tags) : [];
     }
     catch {
@@ -263,20 +269,20 @@ app.post("/new_idea", api_ensure_auth, uploader.any(), function (request, respon
     doc.tags = tags;
     doc.like_count = doc.done_count = 0;
     doc.attachmentUrls = [];
-    
-    if (total == 0) {
-        doc.save({}, function(err, newdoc) {
-            if (err) {
-                response.status(500).send({error: 'Cannot create idea'});
-                return response.end();
-            }
+    let action_cb = function(err, newdoc) {
+        if (err) {
+            response.status(500).send({error: 'Cannot create idea'});
+            return response.end();
+        }
 
-            response.send({status: "create idea ok", id: newdoc._id});
-            response.end();
-        });
-    }
+        response.send({status: "create idea ok", id: newdoc._id});
+        response.end();
+    };
 
-    for (let i = 0; i < request.files.length; ++i) {
+    if (total == 0)
+        doc.save({}, action_cb);
+
+    for (let i = 0; i < total2; ++i) {
         const fn = owner + "_" + uuidv4() + path.extname(request.files[i].originalname);
         const file = bucket.file("uploads/" + fn);
         const stream = file.createWriteStream({
@@ -293,17 +299,8 @@ app.post("/new_idea", api_ensure_auth, uploader.any(), function (request, respon
         });
         
         stream.on('finish', function() {
-            if (--total == 0) { //FIXME: dirty hack
-                doc.save({}, function(err, newdoc) {
-                    if (err) {
-                        response.status(500).send({error: 'Cannot create idea'});
-                        return response.end();
-                    }
-
-                    response.send({status: "create idea ok", id: newdoc._id});
-                    response.end();
-                });
-            }
+            if (--total == 0) //FIXME: dirty hack
+                doc.save({}, action_cb);
         });
         
         stream.end(request.files[i].buffer);
@@ -312,13 +309,15 @@ app.post("/new_idea", api_ensure_auth, uploader.any(), function (request, respon
 
 app.post("/new_team_post", function (request, response) {
     let owner = request.user.username;
+    let categories, text = request.body.text, tags, event = request.body.event;
+    if (!text || !event) {
+        response.status(500).send({error: 'too many missing/empty fields'});
+        return response.end();
+    }
     
-    let categories, text, tags, event;
     try {
         categories = request.body.categories ? JSON.parse(request.body.categories) : [];
-        text = request.body.text;
         tags = request.body.tags ? JSON.parse(request.body.tags) : [];
-        event = request.body.event;
     }
     catch {
         response.status(500).send({error: 'Bad input'});
@@ -364,7 +363,6 @@ app.get("/idea_comments", function (request, response) {
     
 app.post("/new_idea_comment", function (request, response) {
     let owner = request.user.username;
-    
     let idea_id = request.body.idea_id;
     if (!idea_id) {
         response.status(500).send({error: 'Missing ID'});
@@ -373,7 +371,12 @@ app.post("/new_idea_comment", function (request, response) {
     
     let doc = new CommentModel();
     doc.owner = owner;
-    doc.text = request.body.text || "";
+    if (!request.body.text) {
+        response.status(500).send({error: 'Missing/empty text (body)'});
+        return response.end();
+    }
+    
+    doc.text = request.body.text;
     doc.parent_type = "idea";
     doc.parent_oid = idea_id;
     doc.timestamp = new Date();
@@ -407,7 +410,12 @@ app.post("/new_team_post_comment", api_ensure_auth, function (request, response)
     
     let doc = new CommentModel();
     doc.owner = owner;
-    doc.text = request.body.text || "";
+    if (!request.body.text) {
+        response.status(500).send({error: 'Missing/empty text (body)'});
+        return response.end();
+    }
+    
+    doc.text = request.body.text;
     doc.parent_type = "teamPost";
     doc.parent_oid = teampost_id;
     doc.timestamp = new Date();
