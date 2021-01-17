@@ -91,11 +91,8 @@ app.get('/profileInfo', api_ensure_auth, function(request, response) {
     }).limit(1).select("-_id -user_name -__v");
 });
 
-/*app.post('/updateProfile', api_ensure_auth, uploader.single('image'), function(request, response) {
-    const user = request.user.username;*/
-
-app.post('/updateProfile', uploader.single('image'), function(request, response) {
-    const user = request.body.user; //TODO: FIXME: this is a test, very dangerous
+app.post('/updateProfile', api_ensure_auth, uploader.single('image'), function(request, response) {
+    const user = request.user.username;
     let req_file = request.file;
     
     if (!req_file)
@@ -236,12 +233,8 @@ app.get("/team_posts", function (request, response) {
     }).limit(1000).select("-__v").sort(sort); //todo; remove hard limit
 });
 
-//app.post("/new_idea", api_ensure_auth, function (request, response) {
-
-app.post("/new_idea", uploader.any(), function (request, response) {
-    let owner = request.body.owner; //TODO: change this after testing
-        //owner = request.user.username
-    let total = request.files.length;
+app.post("/new_idea", api_ensure_auth, uploader.any(), function (request, response) {
+    let owner = request.user.username, total = request.files.length;
     
     let categories, timestamp, text, tags;
     try {
@@ -311,8 +304,7 @@ app.post("/new_idea", uploader.any(), function (request, response) {
 });
 
 app.post("/new_team_post", function (request, response) {
-    let owner = request.body.owner; //TODO: change this after testing
-        //owner = request.user.username
+    let owner = request.user.username;
     
     let categories, timestamp, text, tags, event;
     try {
@@ -365,7 +357,7 @@ app.get("/idea_comments", function (request, response) {
 });
     
 app.post("/new_idea_comment", function (request, response) {
-    let owner = request.body.owner; //fixme
+    let owner = request.user.username;
     
     let idea_id = request.body.idea_id;
     if (!idea_id) {
@@ -398,8 +390,8 @@ app.post("/new_idea_comment", function (request, response) {
     }).limit(1).select("_id");
 });
 
-app.post("/new_team_post_comment", function (request, response) {
-    let owner = request.body.owner; //fixme
+app.post("/new_team_post_comment", api_ensure_auth, function (request, response) {
+    let owner = request.user.username;
     
     let teampost_id = request.body.teampost_id;
     if (!teampost_id) {
