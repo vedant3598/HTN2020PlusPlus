@@ -79,7 +79,8 @@ app.get('/userInfo', api_ensure_auth, function(request, response) {
 });
     
 app.get('/profileInfo', api_ensure_auth, function(request, response) {
-    profileModel.find({user_name: request.user.username}, function(err, profile) {
+    let user = request.query.user || request.user.username;
+    profileModel.find({user_name: user}, function(err, profile) {
         if (err || profile.length == 0) {
             response.status(500).send({error: 'Invalid/missing user profile entry'});
             return response.end();
@@ -95,29 +96,29 @@ app.get('/profileInfo', api_ensure_auth, function(request, response) {
 
 app.post('/updateProfile', uploader.single('image'), function(request, response) {
     const user = request.body.user; //TODO: FIXME: this is a test, very dangerous
+    let req_file = request.file;
     
-    const fn = user + path.extname(request.file.originalname);
+    if (!req_file)
+        req_file = {mimetype: "text/html", originalname: ""}; //fixme: hack!
+        
+    const fn = user + path.extname(req_file.originalname);
     const file = bucket.file("profiles/" + fn);
     const stream = file.createWriteStream({
       metadata: {
-        contentType: request.file.mimetype,
+        contentType: req_file.mimetype,
       },
     });
     
-    stream.on('error', function(err) {
-        response.status(500).send({error: 'Failed upload test: ' + err});
-        response.end();    
-    });
+    let pp_url = get_gcs_url("profiles", fn);
     
     let newProfile = {}; //fixme: allow change
-    
-    stream.on('finish', function() {
+    let action_cb = function() {
         profileModel.findOneAndUpdate({user_name: user}, newProfile, {}, function(err, profile) {
             if (err || !profile) {
                 let doc = new profileModel();
 
                 doc.user_name = user;
-                doc.profile_pic_url = get_gcs_url("profiles", fn);
+                doc.profile_pic_url = pp_url;
                 doc.name = request.body.name;
                 
                 try {
@@ -146,9 +147,21 @@ app.post('/updateProfile', uploader.single('image'), function(request, response)
             response.send({status: "update profile ok"});
             response.end();
         });
-    });
+    };
     
-    stream.end(request.file.buffer);
+    if (request.file) {
+        stream.on('error', function(err) {
+            response.status(500).send({error: 'Failed upload test: ' + err});
+            response.end();    
+        });
+
+        stream.on('finish', action_cb);
+        stream.end(req_file.buffer);
+    }
+    else {
+        pp_url = get_gcs_url("profiles", "default.png");
+        action_cb();
+    }
 });
 
 // category, sort_by: [likes, done, new], user, never_done: bool, keywords, has_attach
