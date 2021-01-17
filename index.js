@@ -65,7 +65,7 @@ app.get('/register', function(request, response) {
 });
 
 app.get('/', connectEnsureLogin.ensureLoggedIn(), function(request, response) {
-    response.sendFile(path.join(__dirname + '/main.html'));
+    response.sendFile(path.join(__dirname + '/landing.html'));
 });
 
 app.get('/ideas', connectEnsureLogin.ensureLoggedIn(), function(request, response) {

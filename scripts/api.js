@@ -254,8 +254,10 @@ app.post("/new_idea", api_ensure_auth, uploader.any(), function (request, respon
     }
     
     try {
-        categories = request.body.categories ? JSON.parse(request.body.categories) : [];
-        tags = request.body.tags ? JSON.parse(request.body.tags) : [];
+        console.log("categories =", request.body.categories.join(", "));
+        console.log("tags =", request.body.tags.join(", "));
+        categories = request.body.categories.join(", ") ? JSON.parse(request.body.categories.join(", ")) : [];
+        tags = request.body.tags.join(", ") ? JSON.parse(request.body.tags.join(", ")) : [];
     }
     catch {
         response.status(500).send({error: 'Bad input'});
@@ -317,8 +319,8 @@ app.post("/new_team_post", function (request, response) {
     }
     
     try {
-        categories = request.body.categories ? JSON.parse(request.body.categories) : [];
-        tags = request.body.tags ? JSON.parse(request.body.tags) : [];
+        categories = request.body.categories ? JSON.parse(request.body.categories.join(", ")) : [];
+        tags = request.body.tags ? JSON.parse(request.body.tags.join(", ")) : [];
     }
     catch {
         response.status(500).send({error: 'Bad input'});

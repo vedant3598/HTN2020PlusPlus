@@ -6,11 +6,50 @@
     <link rel="stylesheet" href="ideas.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="ideas.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <a class="navbar-brand" href="/">HackATeam</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item active">
+                <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/ideas">Ideas</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/posts">Posts</a>
+              </li>
+              <!--
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Dropdown
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="#">Action</a>
+                  <a class="dropdown-item" href="#">Another action</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="#">Something else here</a>
+                </div>
+              </li>
+              -->
+            </ul>
+          </div>
+        </nav>
   </head>
 
   <body>
     <div style="display: inline-flex;">
-    <h1 style="margin-left: 540px;">HackATeam - Posts</h1>
+    <h1 style="margin-left: 600px;">Posts Forum</h1>
     <img src="https://png.pngitem.com/pimgs/s/627-6275754_chad-profile-pic-profile-photo-circle-png-transparent.png" width="8%" style="margin-left: 380px; margin-top: 10px;">
     <br><br>
   </div>
@@ -19,33 +58,33 @@
       <div style="display: inline-flex;">
         <div class="form-group" style="width: 250px; margin-left: 100px;">
           <label for="exampleFormControlSelect1">Events</label>
-            <select class="form-control" id="exampleFormControlSelect1">
-              <option>Hack The North 2020++</option>
-              <option>Hack the 6ix 2021</option>
-              <option>HackDavis 2021</option>
-              <option>CruzHacks 2021</option>
-              <option>HackED 2021</option>
-              <option>DelatHacks 7</option>
-              <option>PennHacks 2021</option>
-              <option>TOHacks 2021</option>
+            <select class="form-control" id="exampleFormControlSelect1" onchange="selectEvent(this)">
+              <option value="Hack The North 2020++">Hack The North 2020++</option>
+              <option value="HT62021">Hack the 6ix 2021</option>
+              <option value="HD2021">HackDavis 2021</option>
+              <option value="CH2021">CruzHacks 2021</option>
+              <option value="HED2021">HackED 2021</option>
+              <option value="DH7">DelatHacks 7</option>
+              <option value="PH2021">PennHacks 2021</option>
+              <option value="TOH2021">TOHacks 2021</option>
             </select>
           </div>
         <div class="form-group" style="margin-left: 60px; width: 200px;">
           <label for="exampleFormControlSelect1">Categories</label>
-            <select class="form-control" id="exampleFormControlSelect1">
-              <option>IoT</option>
-              <option>Robotics</option>
-              <option>AI/ML</option>
-              <option>FinTech</option>
-              <option>Social Good</option>
-              <option>Cybersecurity</option>
-              <option>Blockchain</option>
-              <option>AR/VR</option>
-              <option>Healthcare</option>
-              <option>Lifehacks</option>
-              <option>Music</option>
-              <option>Productivity</option>
-              <option>Gaming</option>
+            <select class="form-control" id="exampleFormControlSelect1" onchange="selectCategory(this)">
+              <option value="financial">FinTech</option>
+              <option value="IoT">IoT</option>
+              <option value="Robotics">Robotics</option>
+              <option value="AI">AI/ML</option>
+              <option value="Social">Social Good</option>
+              <option value="Cyber">Cybersecurity</option>
+              <option value="Blockchain">Blockchain</option>
+              <option value="AR/VR">AR/VR</option>
+              <option value="Health">Healthcare</option>
+              <option value="Life">Lifehacks</option>
+              <option value="Music">Music</option>
+              <option value="Prod">Productivity</option>
+              <option value="Gaming">Gaming</option>
             </select>
           </div>
 
@@ -53,7 +92,7 @@
         <div class="input-group" style="width: 650px;">
           <input type="text" class="form-control" id="searchBar" placeholder="Search by tag(s)">
           <div class="input-group-append">
-            <button class="btn btn-secondary" type="button" id="searchBtn" onclick="searchTags()">
+            <button class="btn btn-secondary" type="button" id="searchBtn" onclick="searchTagsPosts()">
               <i class="fa fa-search"></i>
             </button>
           </div>
@@ -61,6 +100,35 @@
     </form>
   </div>
   </section>
+
+  <div class="submitDiv">
+    <button class="open-button" onclick="openForm()">Create Post</button>
+
+    <div class="form-popup" id="myForm">
+      <form action="/new_team_post" class="form-container" method="POST">
+        <h1>New Post</h1>
+
+        <label for="event"><b>Event</b></label>
+        <input type="text" placeholder="Enter Event" name="event" required>
+
+        <label for="text"><b>Text</b></label>
+        <input type="text" placeholder="Enter Text" name="text" required>
+
+        <button type="submit" class="btn">Submit</button>
+        <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+      </form>
+    </div>
+
+    <script>
+    function openForm() {
+      document.getElementById("myForm").style.display = "block";
+    }
+
+    function closeForm() {
+      document.getElementById("myForm").style.display = "none";
+    }
+    </script>
+  </div>
 
   <div class="comments" style="margin-left: 100px; margin-right: 100px; margin-top: 50px;" id="commentsFound">
     <div class="row">
@@ -89,76 +157,6 @@
   </div>
 
 
-  <!-- TODO: Hardcode these for time being -->
-  <!--
-    <div class="masonry" style="margin-left: 100px; margin-right: 100px; margin-top: 50px;" id="tagsFound">
-      <div class="item">
-        <h3>1</h3>  
-        <img src="http://www.pixeden.com/media/k2/galleries/468/001-business-card-clip-brand-mock-up-vol-20-psd.jpg">
-        <p>1 Description</p>
-      </div>
-      <div class="item">
-        <h3>2</h3>
-        <img src="http://www.graphicsfuel.com/wp-content/uploads/2015/11/branding-mockup-psd.jpg">
-        <p>2 Description <i style="font-size: 24px; float: right;" class="fa">&#xf0c6;</i></p>
-      </div>
-      <div class="item">
-        <h3>3</h3>
-        <img src="http://www.pixeden.com/media/k2/galleries/511/001-business-card-mockup-vol-22-box-brand-psd.jpg">
-        <p>3 Description</p>
-      </div>
-      <div class="item">
-        <h3>4</h3>
-        <img src="http://freede.ru/wp-content/uploads/2015/01/6546546542.jpg">
-        <p>4 Description</p>
-      </div>
-      <div class="item">
-        <h3>5</h3>
-        <img src="https://blog.spoongraphics.co.uk/wp-content/uploads/2013/mockup/23.jpg">
-        <p>5 Description</p>
-      </div>
-      <div class="item">
-        <h3>6</h3>
-        <img src="http://jquerypluginplus.com/wp-content/uploads/2015/09/Psd_Business_Card_MockUp.jpg">
-        <p>6 Description</p>
-      </div>
-      <div class="item">
-        <h3>7</h3>
-        <img src="http://www.pixeden.com/media/k2/galleries/754/001-businesscard-mockup-presentation-psd-free-resource.jpg">
-        <p>7 Description</p>
-      </div>
-      <div class="item">
-        <h3>8</h3>
-        <img src="http://designdecoding.com/wp-content/uploads/2014/09/001-a4-paper-brand-stationery-isometric-print-mock-up-psd-1.jpg">
-        <p>8 Description</p>
-      </div>
-      <div class="item">
-        <h3>9</h3>
-        <img src="http://www.blugraphic.com/wp-content/uploads/2014/04/Folded-Page-Mockup1.jpg">
-        <p>9 Description</p>
-      </div>
-      <div class="item">
-        10
-        <img src="http://cdn.designinstruct.com/files/542-free-branding-identity-mockups/29-branding-identity-mock-up-vol-8-full.jpg">
-      </div>
-      <div class="item">
-        11
-        <img src="http://www.thomsoon.com/img/portfolio/7clean/7-clean-business-card-mockup-psd-3.jpg">
-      </div>
-        <div class="item">
-        12
-        <img src="http://www.pixeden.com/media/k2/galleries/640/001-business-card-cardboard-mockup-presentation-wall-free-psd.jpg">
-      </div>
-      <div class="item">
-        13
-        <img src="http://designdecoding.com/wp-content/uploads/2014/09/001-a4-paper-brand-stationery-isometric-print-mock-up-psd-1.jpg">
-      </div>
-        <div class="item">
-        14
-        <img src="http://www.pixeden.com/media/k2/galleries/511/001-business-card-mockup-vol-22-box-brand-psd.jpg">
-      </div>
-    </div>
-    -->
 
     <!--FIXME: Edit this to fit our purposes-->
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
