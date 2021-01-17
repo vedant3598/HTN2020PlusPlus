@@ -1,7 +1,7 @@
 const multer = require("multer");
 const Storage = require('@google-cloud/storage').Storage;
 const path = require("path");
-const uuidv4 = require('uuid/v4');
+// const uuidv4 = require('uuid/v4');
 
 // Creates a client and bucket
 const storage = new Storage();
@@ -195,7 +195,6 @@ app.get("/ideas", function (request, response) {
             response.status(500).send({error: "Unknown idea query failure: " + err});
             return response.end();
         }
-        
         response.send(ideas);
         response.end();
     }).limit(1000).select("-__v").sort(sort);

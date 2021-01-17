@@ -1,0 +1,116 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="ideas.css">
+    <script src="ideas.js"></script>
+  </head>
+
+  <body>
+    <h1>Responsive Masonry Grid</h1>
+    <p>A pure CSS-only responsive masonry.</p>
+
+  <section>
+    <div class="d-inline-flex" style="margin-left: 100px;">
+      <div class="dropdown">
+        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Filter by category (dropdown)<span class="caret"></span></button>
+        <ul class="dropdown-menu">
+          <li><a href="#">Category 1</a></li>
+          <li><a href="#">Category 2</a></li>
+          <li><a href="#">Category 3</a></li>
+        </ul>
+      </div>
+
+      <form method="GET" id="searchTags">
+        <div class="input-group">
+          <input type="text" class="form-control" id="searchBar" placeholder="Search by tag(s)">
+          <div class="input-group-append">
+            <button class="btn btn-secondary" type="button" id="searchBtn" onclick="searchTags()">
+              <i class="fa fa-search"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </section>
+
+    <div class="masonry" style="margin-left: 100px; margin-right: 100px;" id="tagsFound">
+      <div class="item">
+        <h3>1</h3>  
+        <img src="http://www.pixeden.com/media/k2/galleries/468/001-business-card-clip-brand-mock-up-vol-20-psd.jpg">
+        <p>1 Description</p>
+      </div>
+      <div class="item">
+        <h3>2</h3>
+        <img src="http://www.graphicsfuel.com/wp-content/uploads/2015/11/branding-mockup-psd.jpg">
+        <p>2 Description</p>
+      </div>
+      <div class="item">
+        <h3>3</h3>
+        <img src="http://www.pixeden.com/media/k2/galleries/511/001-business-card-mockup-vol-22-box-brand-psd.jpg">
+        <p>3 Description</p>
+      </div>
+      <div class="item">
+        <h3>4</h3>
+        <img src="http://freede.ru/wp-content/uploads/2015/01/6546546542.jpg">
+        <p>4 Description</p>
+      </div>
+      <div class="item">
+        <h3>5</h3>
+        <img src="https://blog.spoongraphics.co.uk/wp-content/uploads/2013/mockup/23.jpg">
+        <p>5 Description</p>
+      </div>
+      <div class="item">
+        <h3>6</h3>
+        <img src="http://jquerypluginplus.com/wp-content/uploads/2015/09/Psd_Business_Card_MockUp.jpg">
+        <p>6 Description</p>
+      </div>
+      <div class="item">
+        <h3>7</h3>
+        <img src="http://www.pixeden.com/media/k2/galleries/754/001-businesscard-mockup-presentation-psd-free-resource.jpg">
+        <p>7 Description</p>
+      </div>
+      <div class="item">
+        <h3>8</h3>
+        <img src="http://designdecoding.com/wp-content/uploads/2014/09/001-a4-paper-brand-stationery-isometric-print-mock-up-psd-1.jpg">
+        <p>8 Description</p>
+      </div>
+      <div class="item">
+        <h3>9</h3>
+        <img src="http://www.blugraphic.com/wp-content/uploads/2014/04/Folded-Page-Mockup1.jpg">
+        <p>9 Description</p>
+      </div>
+      <div class="item">
+        10
+        <img src="http://cdn.designinstruct.com/files/542-free-branding-identity-mockups/29-branding-identity-mock-up-vol-8-full.jpg">
+      </div>
+      <div class="item">
+        11
+        <img src="http://www.thomsoon.com/img/portfolio/7clean/7-clean-business-card-mockup-psd-3.jpg">
+      </div>
+        <div class="item">
+        12
+        <img src="http://www.pixeden.com/media/k2/galleries/640/001-business-card-cardboard-mockup-presentation-wall-free-psd.jpg">
+      </div>
+      <div class="item">
+        13
+        <img src="http://designdecoding.com/wp-content/uploads/2014/09/001-a4-paper-brand-stationery-isometric-print-mock-up-psd-1.jpg">
+      </div>
+        <div class="item">
+        14
+        <img src="http://www.pixeden.com/media/k2/galleries/511/001-business-card-mockup-vol-22-box-brand-psd.jpg">
+      </div>
+    </div>
+    <h4>Photo from <a href="https://www.google.com.tw/search?q=mock+up&espv=2&tbm=isch&source=lnt&tbs=isz:m&sa=X&ved=0ahUKEwidx5_s29DLAhVIj5QKHRblBf8QpwUIEw&dpr=1&biw=1920&bih=971"> google</a>.</h4>
+
+    <!--FIXME: Edit this to fit our purposes-->
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.js"></script>
+        <script src=""></script>
+
+  </body>
+</html>
