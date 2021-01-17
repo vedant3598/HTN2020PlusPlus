@@ -1,7 +1,7 @@
 const multer = require("multer");
 const Storage = require('@google-cloud/storage').Storage;
 const path = require("path");
-// const uuidv4 = require('uuid/v4');
+const uuidv4 = require('uuid/v4');
 
 // Creates a client and bucket
 const storage = new Storage();
@@ -202,7 +202,7 @@ app.get("/ideas", function (request, response) {
             response.status(500).send({error: "Unknown idea query failure: " + err});
             return response.end();
         }
-        console.log("ideas =", ideas);
+        
         response.send(ideas);
         response.end();
     }).limit(1000).select("-__v").sort(sort);
@@ -218,9 +218,8 @@ app.get("/team_posts", function (request, response) {
         sort_by = request.query.sort_by;
     
     //strip whitespace
-    for (let i = 0; i < tags.length; ++i) {
+    for (let i = 0; i < tags.length; ++i)
         tags[i] = tags[i].trim();
-    }
     
     let query = {}, sort = {};
     if (category) query.categories = category;
@@ -254,10 +253,8 @@ app.post("/new_idea", api_ensure_auth, uploader.any(), function (request, respon
     }
     
     try {
-        console.log("categories =", request.body.categories.join(", "));
-        console.log("tags =", request.body.tags.join(", "));
-        categories = request.body.categories.join(", ") ? JSON.parse(request.body.categories.join(", ")) : [];
-        tags = request.body.tags.join(", ") ? JSON.parse(request.body.tags.join(", ")) : [];
+        categories = request.body.categories ? JSON.parse(request.body.categories) : [];
+        tags = request.body.tags ? JSON.parse(request.body.tags) : [];
     }
     catch {
         response.status(500).send({error: 'Bad input'});
@@ -319,8 +316,8 @@ app.post("/new_team_post", function (request, response) {
     }
     
     try {
-        categories = request.body.categories ? JSON.parse(request.body.categories.join(", ")) : [];
-        tags = request.body.tags ? JSON.parse(request.body.tags.join(", ")) : [];
+        categories = request.body.categories ? JSON.parse(request.body.categories) : [];
+        tags = request.body.tags ? JSON.parse(request.body.tags) : [];
     }
     catch {
         response.status(500).send({error: 'Bad input'});
@@ -359,11 +356,11 @@ app.get("/idea_comments", function (request, response) {
             return response.end();
         }
         
-        response.send(comments);
+        response.send(comments); 
         response.end();
     }).limit(1000).select("-__v"); //todo: remove hard limit, this is for demo safety
 });
-
+    
 app.post("/new_idea_comment", function (request, response) {
     let owner = request.user.username;
     let idea_id = request.body.idea_id;
