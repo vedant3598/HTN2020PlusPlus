@@ -1,0 +1,28 @@
+<html>
+    <head>
+        <title>Main page</title>
+        <script src="jquery-3.5.1.min.js"></script>
+        <script>
+            var ready = false;
+            
+            function populateUserInfo() {
+                $.ajax({url: "/userInfo", success: function(result) {
+                    $("#user_name").text(result.user);
+                    ready = true;
+                }});
+            }
+            
+            function init() {
+                populateUserInfo();
+            }
+        </script>
+    </head>
+    <body onload="init()">
+        <p>Welcome <span id="user_name"></span>!</p>
+        <a href="/logout">Sign out</a>
+        
+        <h1>
+            This is the main page
+        </h1>
+    </body>
+</html>
