@@ -70,4 +70,4 @@ app.get('/', connectEnsureLogin.ensureLoggedIn(), function(request, response) {
 
 require('./scripts/api.js').register(app, mongoose);
 
-app.listen(8000, '0.0.0.0');
+app.listen(80, '0.0.0.0');
