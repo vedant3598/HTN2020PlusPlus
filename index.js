@@ -68,6 +68,14 @@ app.get('/', connectEnsureLogin.ensureLoggedIn(), function(request, response) {
     response.sendFile(path.join(__dirname + '/main.html'));
 });
 
+app.get('/ideas', connectEnsureLogin.ensureLoggedIn(), function(request, response) {
+    response.sendFile(path.join(__dirname + '/ideas.html'));
+});
+
+app.get('/posts', connectEnsureLogin.ensureLoggedIn(), function(request, response) {
+    response.sendFile(path.join(__dirname + '/posts.html'));
+});
+
 require('./scripts/api.js').register(app, mongoose);
 
 app.listen(80, '0.0.0.0');

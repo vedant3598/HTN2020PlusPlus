@@ -199,6 +199,7 @@ app.get("/ideas", function (request, response) {
             response.status(500).send({error: "Unknown idea query failure: " + err});
             return response.end();
         }
+        console.log("ideas =", ideas);
         response.send(ideas);
         response.end();
     }).limit(1000).select("-__v").sort(sort);
@@ -214,8 +215,9 @@ app.get("/team_posts", function (request, response) {
         sort_by = request.query.sort_by;
     
     //strip whitespace
-    for (let i = 0; i < tags.length; ++i)
+    for (let i = 0; i < tags.length; ++i) {
         tags[i] = tags[i].trim();
+    }
     
     let query = {}, sort = {};
     if (category) query.categories = category;
@@ -358,11 +360,11 @@ app.get("/idea_comments", function (request, response) {
             return response.end();
         }
         
-        response.send(comments); 
+        response.send(comments);
         response.end();
     }).limit(1000).select("-__v"); //todo: remove hard limit, this is for demo safety
 });
-    
+
 app.post("/new_idea_comment", function (request, response) {
     let owner = request.user.username;
     

@@ -9,22 +9,48 @@
   </head>
 
   <body>
-    <h1>HackATeam - Ideas</h1>
+    <div style="display: inline-flex;">
+    <h1 style="margin-left: 540px;">HackATeam - Posts</h1>
+    <img src="https://png.pngitem.com/pimgs/s/627-6275754_chad-profile-pic-profile-photo-circle-png-transparent.png" width="8%" style="margin-left: 380px; margin-top: 10px;">
     <br><br>
+  </div>
 
   <section>
-    <div class="d-inline-flex" style="margin-left: 100px;">
-      <div class="dropdown">
-        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Filter by category (dropdown)<span class="caret"></span></button>
-        <ul class="dropdown-menu">
-          <li><a href="#">Category 1</a></li>
-          <li><a href="#">Category 2</a></li>
-          <li><a href="#">Category 3</a></li>
-        </ul>
-      </div>
+      <div style="display: inline-flex;">
+        <div class="form-group" style="width: 250px; margin-left: 100px;">
+          <label for="exampleFormControlSelect1">Events</label>
+            <select class="form-control" id="exampleFormControlSelect1">
+              <option>Hack The North 2020++</option>
+              <option>Hack the 6ix 2021</option>
+              <option>HackDavis 2021</option>
+              <option>CruzHacks 2021</option>
+              <option>HackED 2021</option>
+              <option>DelatHacks 7</option>
+              <option>PennHacks 2021</option>
+              <option>TOHacks 2021</option>
+            </select>
+          </div>
+        <div class="form-group" style="margin-left: 60px; width: 200px;">
+          <label for="exampleFormControlSelect1">Categories</label>
+            <select class="form-control" id="exampleFormControlSelect1">
+              <option>IoT</option>
+              <option>Robotics</option>
+              <option>AI/ML</option>
+              <option>FinTech</option>
+              <option>Social Good</option>
+              <option>Cybersecurity</option>
+              <option>Blockchain</option>
+              <option>AR/VR</option>
+              <option>Healthcare</option>
+              <option>Lifehacks</option>
+              <option>Music</option>
+              <option>Productivity</option>
+              <option>Gaming</option>
+            </select>
+          </div>
 
-      <form method="GET" id="searchTags">
-        <div class="input-group">
+      <form method="GET" id="searchTags" style="margin-top: 30px;">
+        <div class="input-group" style="width: 650px;">
           <input type="text" class="form-control" id="searchBar" placeholder="Search by tag(s)">
           <div class="input-group-append">
             <button class="btn btn-secondary" type="button" id="searchBtn" onclick="searchTags()">
@@ -32,11 +58,39 @@
             </button>
           </div>
         </div>
-      </div>
     </form>
+  </div>
   </section>
 
+  <div class="comments" style="margin-left: 100px; margin-right: 100px; margin-top: 50px;" id="commentsFound">
+    <div class="row">
+      <div class="column" style="background-color: white; border-color: black;">
+                <div style="display: inline-flex;">
+                    <img src="https://www.pngitem.com/pimgs/m/404-4042710_circle-profile-picture-png-transparent-png.png" width="10%" style="margin-right: 80px;">
+                  <h3>Username: test_32323</h3>
+                  <h3 style="margin-left: 50px;">Event: HTN2020</h3>
+                  <h3 style="margin-left: 50px;">Categories: Gaming</h3>
+                  <h3 style="margin-left: 50px;">Tags: AR/VR</h3>
+                </div>
+                <p style="float: left; padding-left: 50px; padding-top: 50px; font-size: 24px;">Looking for someone who is good with game design, has Unity3D experience, etc...</p>
+              </div>
+
+          <div class="column" style="background-color: white; border-color: black; margin-top: 50px;">
+                <div style="display: inline-flex;">
+                    <img src="https://lh3.googleusercontent.com/BQ5oy23RTCAQn2eMrjrZMqImJltFFe-JSY_O2Bfg0f2y4gWJqO3HtvnOcUQ2jIDim5zECvpBz3GplXlvSNnB9w=w1024" width="10%" style="margin-right: 80px;">
+                  <h3>Username: test_19549</h3>
+                  <h3 style="margin-left: 50px;">Event: HTN2020</h3>
+                  <h3 style="margin-left: 50px;">Categories: Fintech</h3>
+                  <h3 style="margin-left: 50px;">Tags: Blockchain</h3>
+                </div>
+                <p style="float: left; padding-left: 50px; padding-top: 50px; font-size: 24px; text-align: left;">I have 5 years of experience in the fintech industry. Currently looking for hackers who are serious about winning. Let me know if you are interested in making something really cool with Blockchain and Crypto! </p>
+              </div>
+    </div>
+  </div>
+
+
   <!-- TODO: Hardcode these for time being -->
+  <!--
     <div class="masonry" style="margin-left: 100px; margin-right: 100px; margin-top: 50px;" id="tagsFound">
       <div class="item">
         <h3>1</h3>  
@@ -104,6 +158,7 @@
         <img src="http://www.pixeden.com/media/k2/galleries/511/001-business-card-mockup-vol-22-box-brand-psd.jpg">
       </div>
     </div>
+    -->
 
     <!--FIXME: Edit this to fit our purposes-->
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
@@ -112,6 +167,8 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.js"></script>
         <script src=""></script>
+
+
 
   </body>
 </html>
