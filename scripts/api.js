@@ -164,19 +164,23 @@ app.post('/updateProfile', api_ensure_auth, uploader.single('image'), function(r
 // category, sort_by: [likes, done, new], user, never_done: bool, keywords, has_attach
 app.get("/ideas", function (request, response) {
     let category = request.query.category,
-        tag = request.query.tag,
+        tags = request.query.tags ? request.query.tags.split(",") : [],
         never_done = request.query.never_done || false,
         owner = request.query.owner,
         keywords = (request.query.keywords || "").split(" "), //TODO: IMPLEMENT THIS (maybe)
         sort_by = request.query.sort_by,
         has_attach = request.query.has_attach;
     
+    //strip whitespace
+    for (let i = 0; i < tags.length; ++i)
+        tags[i] = tags[i].trim();
+    
     let query = {}, sort = {};
     if (category) query.categories = category;
     if (never_done) query.done_count = 0;
     if (owner) query.owner = owner;
     if (has_attach) query.attachmentUrls = { $exists: true, $ne: [] };
-    if (tag) query.tags = tag;
+    if (tags.length) query.tags = {$in: tags};
     
     switch (sort_by) {
     case "likes":
@@ -204,16 +208,20 @@ app.get("/ideas", function (request, response) {
 // category, sort_by: [new], user, never_done: bool, keywords, has_attach
 app.get("/team_posts", function (request, response) {
     let category = request.query.category,
-        tag = request.query.tag,
+        tags = request.query.tags ? request.query.tags.split(",") : [],
         owner = request.query.owner,
         event = request.query.event,
         keywords = (request.query.keywords || "").split(" "), //TODO: IMPLEMENT THIS (maybe)
         sort_by = request.query.sort_by;
     
+    //strip whitespace
+    for (let i = 0; i < tags.length; ++i)
+        tags[i] = tags[i].trim();
+    
     let query = {}, sort = {};
     if (category) query.categories = category;
     if (owner) query.owner = owner;
-    if (tag) query.tags = tag;
+    if (tags.length) query.tags = {$in: tags};
     if (event) query.event = event;
     
     switch (sort_by) {
@@ -222,13 +230,13 @@ app.get("/team_posts", function (request, response) {
         break;
     }
     
-    TeamPostModel.find(query, function (err, ideas) {
+    TeamPostModel.find(query, function (err, posts) {
         if (err) {
-            response.status(500).send({error: "Unknown idea query failure: " + err});
+            response.status(500).send({error: "Unknown post query failure: " + err});
             return response.end();
         }
         
-        response.send(ideas);
+        response.send(posts);
         response.end();
     }).limit(1000).select("-__v").sort(sort); //todo; remove hard limit
 });
