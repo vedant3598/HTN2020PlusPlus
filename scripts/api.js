@@ -314,6 +314,9 @@ app.post("/new_team_post", function (request, response) {
         response.status(500).send({error: 'too many missing/empty fields'});
         return response.end();
     }
+
+    console.log("categories d =", request.body.categories);
+    console.log("tags d =", request.body.tags);
     
     try {
         categories = request.body.categories ? JSON.parse(request.body.categories) : [];

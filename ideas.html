@@ -176,8 +176,8 @@
 
     function new_idea() {
       var txt = document.getElementById("txt").value;
-      var categories = document.getElementById("cat").value.split(", ");
-      var tags = document.getElementById("tags").value.split(", ");
+      var categories = document.getElementById("cat").value.split(",");
+      var tags = document.getElementById("tags").value.split(",");
       for (let i = 0; i < categories.length; ++i)
         categories[i] = categories[i].trim();
 
