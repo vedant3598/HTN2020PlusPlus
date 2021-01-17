@@ -61,7 +61,7 @@ app.get('/register', function(request, response) {
     if (request.isAuthenticated())
         return response.redirect("/");
     
-	response.sendFile(path.join(__dirname + '/register.html'));
+	response.sendFile(path.join(__dirname + '/signup.html'));
 });
 
 app.get('/', connectEnsureLogin.ensureLoggedIn(), function(request, response) {

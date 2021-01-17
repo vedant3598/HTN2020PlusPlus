@@ -24,17 +24,17 @@
                     margin-right: auto;
                     width: 50%;
                   }">
-                <form id="log-in">
+                <form id="log-in" action="/register" method="POST">
                     <div class="form-group">
                     <label for="exampleInputEmail1">Username</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="hackateam">
+                    <input type="text" class="form-control" id="exampleInputEmail1" name="username" aria-describedby="emailHelp" placeholder="hackateam" required>
                     <small id="emailHelp" class="form-text text-muted"></small>
                     </div>
                     <div class="form-group">
                     <label for="exampleInputPassword1">Password</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="•••••••••">
+                    <input type="password" class="form-control" id="exampleInputPassword1" name="password" placeholder="•••••••••" required>
                     </div>
-                    <a href="dashboard.html" class="btn btn-primary">Sign Up</a>
+                    <a href="javascript:null(0)" onclick="document.getElementById('log-in').submit();" class="btn btn-primary">Sign Up</a>
                 </form>
             </div>
 
